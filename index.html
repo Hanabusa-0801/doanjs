@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PK Store</title>
+
+    <!-- Bootstrap CSS + Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+
+    <!-- AOS + Custom CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+
+  <body>
+    <!-- header -->
+    <div
+      class="container-fluid top-bar d-flex justify-content-between bg-light border-bottom d-md-inline d-none"
+    >
+      <div class="row">
+        <div class="col-4">
+          <div class="icon-navbar">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-twitter"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
+            <a href="#"><i class="bi bi-behance"></i></a>
+          </div>
+        </div>
+        <div class="col-5"></div>
+        <div class="col-3 d-flex me-auto">
+          <div class="user-links text-dark pt-2 pb-2 d-flex ms-auto">
+            <a
+              href="dangnhap.html"
+              type="button"
+              class="nut mx-2 d-none d-md-block"
+              ><i class="bi bi-person-fill"></i> Tài khoản</a
+            >
+            <a
+              href="giohang.html"
+              type="button"
+              class="nut mx-2 d-none d-md-block"
+              ><i class="bi bi-bag-fill"></i> Giỏ hàng</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-light sticky-top shadow-sm">
+      <div class="container-lg">
+        <!-- Logo -->
+        <a class="navbar-brand fs-2 fw-bold" href="index.html">
+          <span style="color: #f355a4">PK</span> Store
+        </a>
+
+        <!-- Button collapse -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menu -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+            <!-- Menu chính -->
+            <li class="nav-item">
+              <a class="nav-link active" href="index.html">TRANG CHỦ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="sanpham.html">SẢN PHẨM</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="tacgia.html">TÁC GIẢ</a>
+            </li>
+
+            <!-- Hiển thị trên mobile -->
+            <li class="nav-item d-md-none">
+              <a class="nav-link fw-bold" href="dangnhap.html">TÀI KHOẢN</a>
+            </li>
+            <li class="nav-item d-md-none">
+              <a class="nav-link fw-bold" href="giohang.html">GIỎ HÀNG</a>
+            </li>
+
+            <!-- Dropdown -->
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                data-bs-toggle="dropdown"
+              >
+                THÊM
+              </a>
+              <ul class="dropdown-menu bg-light">
+                <li><a class="dropdown-item" href="lienhe.html">Liên hệ</a></li>
+                <li>
+                  <a class="dropdown-item" href="gioithieu.html">Giới thiệu</a>
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a
+                    class="dropdown-item fw-semibold"
+                    href="lichsu.html"
+                    style="color: #f355a4"
+                  >
+                    Lịch sử mua hàng
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <!-- Form tìm kiếm -->
+          <form class="d-flex ms-lg-3 mt-2 mt-lg-0" role="search">
+            <input
+              class="form-control"
+              type="search"
+              placeholder="Tìm kiếm sách..."
+              aria-label="Search"
+              style="border-radius: 20px; border-color: #f355a4"
+            />
+            <button
+              class="btn ms-2"
+              type="submit"
+              style="
+                background-color: #f355a4;
+                color: white;
+                border-radius: 20px;
+              "
+            >
+              🔍
+            </button>
+          </form>
+
+          <div
+            class="container-fluid top-bar d-flex justify-content-between bg-light border-bottom d-md-none d-block"
+          >
+            <div class="icon-navbar mt-md-2 my-3">
+              <a href="#"><i class="bi bi-facebook"></i></a>
+              <a href="#"><i class="bi bi-twitter"></i></a>
+              <a href="#"><i class="bi bi-youtube"></i></a>
+              <a href="#"><i class="bi bi-behance"></i></a>
+            </div>
+            <div
+              class="user-links text-dark pt-2 pb-2 d-flex flex-wrap ms-auto"
+            >
+              <a
+                href="dangnhap.html"
+                type="button"
+                class="nut m-2 d-none d-md-block"
+                ><i class="bi bi-person-fill"></i> Tài khoản</a
+              >
+              <a
+                href="giohang.html"
+                type="button"
+                class="nut m-2 d-none d-md-block"
+                ><i class="bi bi-bag-fill"></i> Giỏ hàng</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- carousel -->
+    <div class="d-flex justify-content-center">
+      <div
+        id="carouselExampleSlidesOnly"
+        class="carousel slide col-lg-12 rounded-5"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              src="assets/images/banner2.jpg"
+              class="d-block w-100 h-25 rounded-5"
+              alt="..."
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="assets/images/banner3.jpg"
+              class="d-block w-100 h-25 rounded-5"
+              alt="..."
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Section -->
+    <section class="py-3 bg-light text-center">
+      <div class="container py-4" data-aos="fade-up">
+        <h3 class="mb-4">Light Novel</h3>
+        <div class="row g-4">
+          <div class="row g-4" id="book-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- trích dân -->
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card p-4">
+            <div class="card-body text-center" data-aos="fade-up">
+              <h2>Trích dẫn nổi bật</h2>
+              <blockquote data-aos="fade-up">
+                <!-- carousel trích dẫn -->
+                <div
+                  id="carouselExample"
+                  class="carousel slide"
+                  data-bs-ride="carousel"
+                  data-bs-interval="5000"
+                >
+                  <div class="carousel-inner">
+                    <div class="carousel-item active" style="min-height: 200px">
+                      <!-- nội dung -->
+                      <img
+                        width="15%"
+                        src="assets/images/author-avt1.jpg"
+                        class="d-block mx-auto py-3 w-25 h-25 rounded-circle"
+                        alt="..."
+                      />
+                      <q
+                        >“A human being is part of the whole, called by us
+                        ‘Universe,’ a part limited in time and space. He
+                        experiences himself, his thoughts and feelings as
+                        something separated from the rest—a kind of optical
+                        delusion of his consciousness. This delusion is a kind
+                        of prison for us, restricting us to our personal desires
+                        and to affection for a few persons nearest us. Our task
+                        must be to free ourselves from this prison by widening
+                        our circle of compassion to embrace all living creatures
+                        and the whole of nature in its beauty.”</q
+                      >
+                      <div class="author-name">Albert Einstein</div>
+                      <!-- hết nội dung -->
+                    </div>
+                    <div class="carousel-item" style="min-height: 200px">
+                      <!-- nội dung -->
+                      <img
+                        width="15%"
+                        src="assets/images/author-avt2.jpg"
+                        class="d-block mx-auto py-3 w-25 h-25 rounded-circle"
+                        alt="..."
+                      />
+                      <q
+                        >“To live is the rarest thing in the world. Most people
+                        exist, that is all. To live fully, truly, deeply means
+                        embracing risks, accepting failures, and recognizing
+                        beauty in both joy and sorrow. Life is not meant to be
+                        measured merely by the number of breaths we take, but by
+                        the moments that take our breath away.”</q
+                      >
+                      <div class="author-name">Oscar Wilde</div>
+                      <!-- hết nội dung -->
+                    </div>
+                    <div class="carousel-item">
+                      <!-- nội dung -->
+                      <img
+                        width="15%"
+                        src="assets/images/author-avt3.jpg"
+                        class="d-block w-25 h-25 rounded-circle mx-auto py-3"
+                        alt="..."
+                      />
+                      <q
+                        >“You have brains in your head. You have feet in your
+                        shoes. You can steer yourself in any direction you
+                        choose. You're on your own. And you know what you know.
+                        And YOU are the one who’ll decide where to go. Life may
+                        test you with detours, bumps, and unexpected turns, but
+                        remember that the journey itself is just as important as
+                        the destination.”</q
+                      >
+                      <div class="author-name">Dr. Seuss</div>
+                      <!-- hết nội dung -->
+                    </div>
+                  </div>
+                  <button
+                    class="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#carouselExample"
+                    data-bs-slide="prev"
+                  ></button>
+                </div>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Section 2 -->
+    <section class="py-3 bg-light text-center">
+      <div class="container py-4" data-aos="fade-up">
+        <h3 class="mb-4">Manwa</h3>
+        <div class="row g-4">
+          <!-- Card 1 -->
+          <div class="col-md-3 col-6 d-flex">
+            <div class="product-card w-100" data-link="chitietsanpham.html">
+              <img
+                src="assets/images/ảnh truyện/sach14.jpg"
+                alt="Solo Leveling"
+                class="img-fluid"
+              />
+              <div class="product-info">
+                <div>
+                  <div class="product-name">
+                    A Returner’s Magic Should Be Special
+                  </div>
+                  <div>
+                    <span class="price">45.300 đ</span>
+                    <span class="discount-badge">-10%</span>
+                  </div>
+                  <div class="old-price">87.000 đ</div>
+                  <div class="sold">Đã bán 115</div>
+                </div>
+                <a href="#" class="add-cart-btn">Thêm giỏ hàng</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="col-md-3 col-6 d-flex">
+            <div class="product-card w-100" data-link="chitietsanpham.html">
+              <img
+                src="assets/images/ảnh truyện/sach15.jpg"
+                alt="God of High School"
+                class="img-fluid"
+              />
+              <div class="product-info">
+                <div>
+                  <div class="product-name">Player Who Can’t Level Up</div>
+                  <div>
+                    <span class="price">200.300 đ</span>
+                    <span class="discount-badge">-10%</span>
+                  </div>
+                  <div class="old-price">269.000 đ</div>
+                  <div class="sold">Đã bán 115</div>
+                </div>
+                <a href="#" class="add-cart-btn">Thêm giỏ hàng</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="col-md-3 col-6 d-flex">
+            <div class="product-card w-100" data-link="chitietsanpham.html">
+              <img
+                src="assets/images/ảnh truyện/sach16.jpg"
+                alt="Omniscient Reader"
+                class="img-fluid"
+              />
+              <div class="product-info">
+                <div>
+                  <div class="product-name">
+                    The Legendary Moonlight Sculptor
+                  </div>
+                  <div>
+                    <span class="price">498.300 đ</span>
+                    <span class="discount-badge">-10%</span>
+                  </div>
+                  <div class="old-price">520.000 đ</div>
+                  <div class="sold">Đã bán 115</div>
+                </div>
+                <a href="#" class="add-cart-btn">Thêm giỏ hàng</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="col-md-3 col-6 d-flex">
+            <div class="product-card w-100" data-link="chitietsanpham.html">
+              <img
+                src="assets/images/ảnh truyện/sach17.jpg"
+                alt="SSS-Class Suicide Hunter"
+                class="img-fluid"
+              />
+              <div class="product-info">
+                <div>
+                  <div class="product-name">
+                    Second Life Ranker (Ranker Who Lives A Second Time)
+                  </div>
+                  <div>
+                    <span class="price">328.300 đ</span>
+                    <span class="discount-badge">-10%</span>
+                  </div>
+                  <div class="old-price">520.000 đ</div>
+                  <div class="sold">Đã bán 115</div>
+                </div>
+                <a href="#" class="add-cart-btn">Thêm giỏ hàng</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio">
+      <div class="container py-5">
+        <div class="row g-3 align-items-center">
+          <div
+            class="col-md-5 d-flex justify-content-md-start justify-content-center"
+          >
+            <img src="assets/images/tacgia1.jpg" class="img-fluid w-75" />
+          </div>
+          <div class="col-md-7">
+            <p>
+              Her laugh is free. Her pose is soft—elegant, stylish, unique. Each
+              frame crafted and captured through artistic vision and modern
+              simplicity. She’s herself, unfiltered, bold, confident.
+            </p>
+            <p>
+              Discover timeless beauty through our lens. Whether it’s fashion or
+              lifestyle, we’re here to help you find yourself through
+              professional photography and authentic storytelling.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Gallery -->
+    <section class="footer-gallery text-center py-4 text-white">
+      <div class="container">
+        <h1 class="mb-4 text-dark">Truyện đề xuất</h1>
+        <div class="row g-4 justify-content-center">
+          <div class="col-md-3">
+            <img
+              src="assets/images/ảnh truyện/sach22.jpg"
+              class="img-fluid container-sm w-75"
+              alt=""
+            />
+          </div>
+          <div class="col-md-3">
+            <img
+              src="assets/images/ảnh truyện/sach20.jpg"
+              class="img-fluid container-sm w-75"
+              alt=""
+            />
+          </div>
+          <div class="col-md-3">
+            <img
+              src="assets/images/ảnh truyện/sach24.jpg"
+              class="img-fluid container-sm w-75"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+      <hr />
+    </section>
+
+    <!-- nhận thông tin -->
+    <section id="subscribe" class="py-5 mb-2">
+      <div class="container">
+        <div class="row justify-content-center align-items-center">
+          <!-- Cột trái -->
+          <div class="col-md-5 mb-4 mb-md-0">
+            <h2 class="fw-bold mb-3">Đăng Ký Nhận Tin Mới</h2>
+            <hr class="border-2 opacity-100" style="width: 80px" />
+          </div>
+
+          <!-- Cột phải -->
+          <div class="col-md-7">
+            <p class="mb-4">
+              Sed eu feugiat amet, libero ipsum enim pharetra hac dolor sit
+              amet, consectetur. Elit adipiscing enim pharetra hac Lorem ipsum
+              dolor sit amet consectetur adipisicing elit. Ut odio amet officiis
+              aspernatur, corporis et architecto possimus laboriosam nemo illo
+              voluptatem provident hic optio consectetur nobis? Ipsam soluta
+              tenetur adipisci.
+            </p>
+            <form class="d-flex pb-2">
+              <input
+                type="email"
+                class="form-control border-0 shadow-none me-4"
+                placeholder="Enter your email address here"
+              />
+              <button
+                type="submit"
+                class="btn fw-bold text-white text-uppercase d-flex align-items-center gap-2 ps-4"
+                style="background-color: #f355a4"
+              >
+                Xác Nhận <i class="bi bi-send"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer pt-5">
+      <div class="container-lg">
+        <div class="row g-4">
+          <!-- Company Info -->
+          <div class="col-lg-4 col-md-12">
+            <h3 class="footer-title">
+              PK <span style="color: black">Store</span>
+            </h3>
+            <p class="mb-4">
+              Đọc sách có vai trò vô cùng quan trọng trong việc mở rộng tri thức
+              và rèn luyện tư duy. Qua những trang sách, chúng ta không chỉ tiếp
+              thu kiến thức mới mà còn học được cách nhìn nhận, phân tích và
+              giải quyết vấn đề
+            </p>
+            <div class="social-links mb-3">
+              <a href="#"><i class="bi bi-facebook"></i></a>
+              <a href="#"><i class="bi bi-instagram"></i></a>
+              <a href="#"><i class="bi bi-youtube"></i></a>
+              <a href="#"><i class="bi bi-tiktok"></i></a>
+              <a href="#"><i class="bi bi-github"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-6">
+            <h3 class="footer-title">Chúng tôi</h3>
+            <ul class="footer-links">
+              <li><a href="gioithieu.php">Mục tiêu</a></li>
+              <li><a href="gioithieu.php">Định hướng</a></li>
+              <li><a href="#">Điều khoản dịch vụ</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-6">
+            <h3 class="footer-title">Khám phá</h3>
+            <ul class="footer-links">
+              <li><a href="home.php">Trang chủ</a></li>
+              <li><a href="sanpham.php">Sản phẩm</a></li>
+              <li><a href="tacgia.php">Tác giả</a></li>
+              <li><a href="lienhe.php">Liên hệ</a></li>
+              <li><a href="gioithieu.php">Giới thiệu</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-6">
+            <h3 class="footer-title">Tài khoản</h3>
+            <ul class="footer-links">
+              <li><a href="../assets/login.php">Đăng nhập</a></li>
+              <li><a href="../assets/cart.php">Giỏ hàng</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-6">
+            <h3 class="footer-title">Hỗ trợ</h3>
+            <ul class="footer-links">
+              <li><a href="lienhe.php">Trung tâm hỗ trợ</a></li>
+              <li><a href="lienhe.php">Báo cáo sự cố</a></li>
+              <li><a href="lienhe.php">Đề xuất chỉnh sửa</a></li>
+              <li><a href="lienhe.php">Liên hệ</a></li>
+            </ul>
+          </div>
+        </div>
+        <p class="m-0 mt-3 pb-1 text-secondary text-center">
+          © 2025 PK Store – Đọc sách mỗi ngày, mở rộng tri thức.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      document.querySelectorAll(".product-card").forEach((card) => {
+        card.addEventListener("click", () => {
+          window.location.href = card.dataset.link;
+        });
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+   <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.getElementById("book-list");
+
+  fetch("http://localhost:3000/api/books")
+    .then(res => res.json())
+    .then(data => {
+      container.innerHTML = "";
+      data.forEach(book => {
+        const card = document.createElement("div");
+        card.className = "col-md-3 col-6 d-flex";
+
+        const oldPrice = book.discount
+          ? (book.price / (1 - book.discount / 100))
+          : book.price;
+
+        card.innerHTML = `
+          <div class="product-card w-100" data-link="chitietsanpham.html?id=${book.id}" style="cursor:pointer;">
+            <img src="assets/images/ảnh truyện/${book.image}" alt="${book.title}" class="img-fluid" />
+            <div class="product-info">
+              <div>
+                <div class="product-name">${book.title}</div>
+                <div>
+                  <span class="price">${book.price.toLocaleString()} đ</span>
+                  <span class="discount-badge">-${book.discount}%</span>
+                </div>
+                <div class="old-price">${oldPrice.toLocaleString()} đ</div>
+                <div class="sold">Đã bán ${book.sold || 0}</div>
+              </div>
+              <a href="#" class="add-cart-btn">Thêm giỏ hàng</a>
+            </div>
+          </div>`;
+
+        // 🖱️ Khi click vào card → chuyển đến trang chi tiết
+        card.addEventListener("click", (e) => {
+          // Ngăn click vào nút "Thêm giỏ hàng" bị kích hoạt
+          if (e.target.classList.contains("add-cart-btn")) return;
+          const link = card.querySelector(".product-card").getAttribute("data-link");
+          window.location.href = link;
+        });
+
+        container.appendChild(card);
+      });
+    })
+    .catch(err => {
+      console.error("Lỗi tải sách:", err);
+      container.innerHTML = "<p>Không thể tải danh sách sách.</p>";
+    });
+});
+</script>
+
+
+
+    <!-- JS đặt cuối để tránh lỗi -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="assets/js/hieuung.js"></script>
+  </body>
+</html>

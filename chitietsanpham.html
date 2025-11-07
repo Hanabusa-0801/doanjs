@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chi tiết sản phẩm | PK Store</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+
+    <style>
+      body {
+        background-color: #fef6f9;
+      }
+      .product-img-detail {
+        max-height: 500px;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        background-color: white;
+      }
+      .detail-card {
+        background-color: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      }
+      .detail-price {
+        font-size: 2.5rem;
+        color: #f355a4;
+        font-weight: 800;
+      }
+      .old-price-detail {
+        text-decoration: line-through;
+        color: #999;
+        font-size: 1.1rem;
+        margin-left: 10px;
+      }
+      .discount-badge-detail {
+        background-color: #d9448d;
+        color: white;
+        padding: 4px 10px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        font-weight: bold;
+        margin-left: 10px;
+      }
+      .btn-add-cart {
+        background-color: #f355a4;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        font-size: 1.1rem;
+        border-radius: 10px;
+        font-weight: bold;
+      }
+      .btn-buy-now {
+        background-color: white;
+        color: #f355a4;
+        border: 2px solid #f355a4;
+        padding: 15px 30px;
+        font-size: 1.1rem;
+        border-radius: 10px;
+        font-weight: bold;
+      }
+      .btn-add-cart:hover {
+        background-color: #d9448d;
+        color: white;
+      }
+      .btn-buy-now:hover {
+        background-color: #fef6f9;
+        color: #d9448d;
+      }
+      .description-section {
+        background-color: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      }
+      .quantity-input {
+        max-width: 100px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        height: 40px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container-lg my-5" id="productDetail">
+      <h3 class="text-center text-muted">Đang tải sản phẩm...</h3>
+    </div>
+
+    <footer class="footer pt-5">
+      <div class="container-lg text-center">
+        <p class="m-0 mt-3 pb-1 text-secondary">
+          © 2025 PK Store – Đọc sách mỗi ngày, mở rộng tri thức.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+      const container = document.getElementById("productDetail");
+
+      if (!id) {
+        container.innerHTML =
+          "<div class='alert alert-danger text-center mt-5'>Không tìm thấy sản phẩm!</div>";
+      } else {
+        loadProduct(id);
+      }
+
+      async function loadProduct(id) {
+        try {
+          const res = await fetch(`http://localhost:3000/api/books/${id}`);
+          if (!res.ok) throw new Error("Không tìm thấy sản phẩm");
+          const product = await res.json();
+
+          const discount = product.discount || 0;
+          const finalPrice = product.price * (1 - discount / 100);
+          const sold = Math.floor(Math.random() * 400) + 50;
+
+          container.innerHTML = `
+            <div class="row g-5">
+              <div class="col-lg-5 col-md-6 text-center">
+                <img src="${normalizeImageUrl(product.image)}" alt="${product.title}" class="img-fluid product-img-detail"/>
+              </div>
+
+              <div class="col-lg-7 col-md-6">
+                <div class="detail-card">
+                  <h1 class="fw-bold mb-3">${product.title}</h1>
+                  <p class="text-muted fs-6">
+                    Thể loại: <span class="fw-bold text-dark">${product.category}</span> |
+                    Đã bán: <span class="fw-bold text-dark">${sold}</span>
+                  </p>
+
+                  <hr>
+
+                  <div class="d-flex align-items-baseline mb-4">
+                    <span class="detail-price">${finalPrice.toLocaleString()} đ</span>
+                    ${
+                      discount > 0
+                        ? `<span class="old-price-detail">${product.price.toLocaleString()} đ</span>
+                           <span class="discount-badge-detail">-${discount}%</span>`
+                        : ""
+                    }
+                  </div>
+
+                  <div class="mb-5 d-flex align-items-center">
+                    <label class="form-label me-3 fw-bold m-0">Số lượng:</label>
+                    <input type="number" class="form-control quantity-input text-center" id="quantity" value="1" min="1" max="100" />
+                  </div>
+
+                  <div class="d-grid gap-3 d-sm-block">
+                    <button class="btn btn-add-cart me-sm-3 w-100 w-sm-auto" onclick="addToCart(${product.id})">
+                      <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ hàng
+                    </button>
+                    <button class="btn btn-buy-now w-100 w-sm-auto" onclick="buyNow(${product.id})">
+                      <i class="bi bi-lightning-charge me-1"></i> Mua ngay
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-5">
+              <div class="col-12">
+                <div class="description-section">
+                  <h4 class="fw-bold mb-4" style="color: #f355a4;">Mô tả</h4>
+                  <p>${product.description || "Chưa có mô tả cho sản phẩm này."}</p>
+                </div>
+              </div>
+            </div>
+          `;
+        } catch (err) {
+          console.error(err);
+          container.innerHTML = "<div class='alert alert-danger text-center mt-5'>Không thể tải sản phẩm.</div>";
+        }
+      }
+
+      // 🖼️ Xử lý đường dẫn ảnh (đảm bảo ảnh trong assets hoặc URL đầy đủ)
+      function normalizeImageUrl(path) {
+        if (!path) return "https://via.placeholder.com/400x500?text=No+Image";
+        if (path.startsWith("http://") || path.startsWith("https://")) return path;
+        return `http://localhost:3000${path.startsWith("/") ? path : "/" + path}`;
+      }
+
+      // 🛒 Thêm vào giỏ hàng
+      function addToCart(id) {
+        const qty = parseInt(document.getElementById("quantity").value) || 1;
+
+        // Lấy giỏ hàng cũ
+        let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+        // Kiểm tra xem sản phẩm đã có chưa
+        const index = cart.findIndex((item) => item.id === id);
+        if (index !== -1) {
+          cart[index].quantity += qty; // Cộng thêm số lượng
+        } else {
+          cart.push({ id: id, quantity: qty });
+        }
+
+        // Lưu lại vào localStorage
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        // Thông báo
+        alert(`🛒 Đã thêm ${qty} sản phẩm vào giỏ hàng!`);
+      }
+
+      // ⚡ Mua ngay
+      function buyNow(id) {
+        const qty = parseInt(document.getElementById("quantity").value) || 1;
+
+        // Gọi luôn hàm addToCart để thêm vào giỏ
+        addToCart(id);
+
+        // Điều hướng sang trang thanh toán
+        window.location.href = "thanhtoan.html";
+      }
+    </script>
+  </body>
+</html>

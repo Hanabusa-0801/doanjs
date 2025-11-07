@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản lý người dùng | PK Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    body { background-color: #fff; color: #333; }
+    .sidebar { height: 100vh; background-color: #f355a4; color: white; padding-top: 20px; }
+    .sidebar a { color: white; display: block; padding: 10px 20px; text-decoration: none; border-radius: 10px; }
+    .sidebar a:hover, .sidebar a.active { background-color: #ff77c7; }
+    .main-content { padding: 30px; }
+    .btn-pink { background-color: #f355a4; color: white; border: none; }
+    .btn-pink:hover { background-color: #d9448d; color: white; }
+    table thead { background-color: #ffe4f2; }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-lg-2 col-md-3 sidebar d-flex flex-column sticky-md-top">
+        <h4 class="text-center mb-4">PK Admin</h4>
+        <a href="admin.html"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
+        <a href="admin_users.html" class="active"><i class="bi bi-people me-2"></i> Users</a>
+        <a href="admin_products.html"><i class="bi bi-box-seam me-2"></i> Products</a>
+        <a href="admin_orders.html"><i class="bi bi-receipt me-2"></i> Orders</a>
+        <a href="dangnhap.html" class="mt-auto text-danger"><i class="bi bi-box-arrow-right me-2"></i>Đăng xuất</a>
+      </div>
+
+      <!-- Main content -->
+      <div class="col-lg-10 col-md-9 main-content">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h3>Quản lý người dùng</h3>
+          <button class="btn btn-pink" data-bs-toggle="modal" data-bs-target="#addUserModal">
+            <i class="bi bi-person-plus me-1"></i> Thêm người dùng
+          </button>
+        </div>
+
+        <form id="searchForm" class="d-flex mb-4">
+          <input type="text" id="searchInput" class="form-control me-2" placeholder="Tìm theo tên đăng nhập hoặc email">
+          <button class="btn btn-pink" type="submit"><i class="bi bi-search"></i> Tìm kiếm</button>
+        </form>
+
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle text-center">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Tên đăng nhập</th>
+                <th>Email</th>
+                <th>Vai trò</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody id="userTableBody">
+              <tr><td colspan="5" class="text-center">Đang tải...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal thêm user -->
+  <div class="modal fade" id="addUserModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="addUserForm">
+          <div class="modal-header">
+            <h5 class="modal-title">Thêm người dùng</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <input class="form-control mb-2" name="username" placeholder="Tên đăng nhập" required>
+            <input class="form-control mb-2" name="email" type="email" placeholder="Email" required>
+            <input class="form-control mb-2" name="password" type="password" placeholder="Mật khẩu" required>
+            <select class="form-select" name="role">
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+            <button type="submit" class="btn btn-pink">Thêm</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const tableBody = document.getElementById("userTableBody");
+    const searchForm = document.getElementById("searchForm");
+    const addUserForm = document.getElementById("addUserForm");
+
+    // 🔍 Load danh sách users
+    async function loadUsers(query = "") {
+      tableBody.innerHTML = "<tr><td colspan='5'>Đang tải...</td></tr>";
+      try {
+        const res = await fetch(`http://localhost:3000/api/users?search=${query}`);
+        const data = await res.json();
+        if (!data.length) {
+          tableBody.innerHTML = "<tr><td colspan='5'>Không có người dùng nào</td></tr>";
+          return;
+        }
+        tableBody.innerHTML = data.map(u => `
+          <tr>
+            <td>${u.id}</td>
+            <td>${u.username}</td>
+            <td>${u.email}</td>
+            <td>${u.role}</td>
+            <td>
+              <button class="btn btn-sm btn-warning" onclick="editUser(${u.id}, '${u.username}', '${u.email}', '${u.role}')"><i class="bi bi-pencil"></i></button>
+              <button class="btn btn-sm btn-danger" onclick="deleteUser(${u.id})"><i class="bi bi-trash"></i></button>
+            </td>
+          </tr>
+        `).join("");
+      } catch (err) {
+        tableBody.innerHTML = "<tr><td colspan='5' class='text-danger'>Lỗi tải dữ liệu!</td></tr>";
+      }
+    }
+
+    // 🔎 Tìm kiếm user
+    searchForm.addEventListener("submit", e => {
+      e.preventDefault();
+      loadUsers(document.getElementById("searchInput").value.trim());
+    });
+
+    // ➕ Thêm user
+    addUserForm.addEventListener("submit", async e => {
+      e.preventDefault();
+      const formData = Object.fromEntries(new FormData(addUserForm));
+      const res = await fetch("http://localhost:3000/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      });
+      const data = await res.json();
+      alert(data.message || "Thêm thành công");
+      addUserForm.reset();
+      document.querySelector("#addUserModal .btn-close").click();
+      loadUsers();
+    });
+
+    // ✏️ Sửa user (đơn giản chỉ prompt)
+    async function editUser(id, username, email, role) {
+      const newEmail = prompt("Cập nhật email:", email);
+      if (!newEmail) return;
+      const res = await fetch(`http://localhost:3000/api/users/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, email: newEmail, role })
+      });
+      const data = await res.json();
+      alert(data.message);
+      loadUsers();
+    }
+
+    // ❌ Xóa user
+    async function deleteUser(id) {
+      if (!confirm("Bạn có chắc muốn xóa người dùng này?")) return;
+      const res = await fetch(`http://localhost:3000/api/users/${id}`, { method: "DELETE" });
+      const data = await res.json();
+      alert(data.message);
+      loadUsers();
+    }
+
+    // 🔄 Khởi chạy
+    loadUsers();
+  </script>
+</body>
+</html>
